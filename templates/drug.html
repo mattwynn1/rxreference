@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+
+<!-- *****************************************************************************************************************
+	 TOP CONTENT
+	 ***************************************************************************************************************** -->
+
+	 <div class="container mtb">
+	 	<div class="row">
+                       <div class="col-md-3">
+                                <h4>Sections</h4>
+                                <a href="#" data-toggle="modal" data-target="#myModal">See {{ images.count }} images</a>
+                                <p>Generic name: {{ r.openfda.generic_name.0|title }}</p>
+                                <p>Manufacturer: {{ r.openfda.manufacturer_name.0 }}</p>
+                                <p>NDC: {{ r.openfda.product_ndc.0 }}</p>
+                                <p>Route: {{ r.openfda.route.0 }}</p>
+       	               	       	
+                        </div>
+	 		<div class="col-md-9">
+		 		<h4>{% if r.openfda.brand_name %}{{ r.openfda.brand_name.0 }}{% else %}{{ r.openfda.generic_name.0 }}{% endif %}</h4>
+		 		<p>{{ r.description.0|cut:"DESCRIPTION "|cut:" chemical-structure"|truncatewords:60 }} <a href="#" data-toggle="modal" data-target="#descModal">More</a></p>
+	 		</div>
+	 		
+	 	</div><! --/row -->
+	 </div><! --/container -->
+	 
+	<!-- *****************************************************************************************************************
+	 SECTIONS
+	 ***************************************************************************************************************** -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Images</h4>
+      </div>
+      <div class="modal-body">
+        {% for image in images %}
+	<p><img src="{{ image }}" width=100%></p>
+	{% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div><!-->/modalidialog-->
+</div><!--/myModal-->
+
+<!-- Description modal-->
+
+<div id="descModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ r.name }}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{ r.description.0 }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</bu$
+      </div>
+    </div>
+</div></div>
+</div>
+
+<div class="bs-example">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#contraindications">+ Contraindications</a>
+                </h4>
+            </div>
+            <div id="contraindications" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <p>{{ r.contraindications.0 }}</p>
+                </div>
+            </div>
+        </div>
+	{% if r.drug_abuse_and_dependence.0 %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#drug_abuse_and_dependence">+ Drug abuse and dependence</a>
+                </h4>
+            </div>
+            <div id="drug_abuse_and_dependence" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.drug_abuse_and_dependence.0 }}</p>
+                </div>
+            </div>
+        </div>
+	{% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#precautions">+ Precautions</a>
+                </h4>
+            </div>
+            <div id="precautions" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.precautions.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#adverse_reactions">+ Adverse reactions</a>
+                </h4>
+            </div>
+            <div id="adverse_reactions" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.adverse_reactions.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#dosage_and_administration">+ Dosage and administration</a>
+                </h4>
+            </div>
+            <div id="dosage_and_administration" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.dosage_and_administration.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#boxed_warning">+ Boxed warning</a>
+                </h4>
+            </div>
+            <div id="boxed_warning" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.boxed_warning.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#warnings">+ Warnings</a>
+                </h4>
+            </div>
+            <div id="warnings" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.warnings.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#how_supplied">+ How supplied</a>
+                </h4>
+            </div>
+            <div id="how_supplied" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.how_supplied.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#package_label_principal_display_panel">+ Principal Display Panel</a>
+                </h4>
+            </div>
+            <div id="package_label_principal_display_panel" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.package_label_principal_display_panel.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#spl_medguide">+ MedGuide</a>
+                </h4>
+            </div>
+            <div id="spl_medguide" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.spl_medguide.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#indications_and_usage">+ Indications and usage</a>
+                </h4>
+            </div>
+            <div id="indications_and_usage" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.indications_and_usage.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#clinical_pharmacology">+ Clinical pharmacology</a>
+                </h4>
+            </div>
+            <div id="clinical_pharmacology" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.clinical_pharmacology.0|safe }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#overdosage">+ Overdosage</a>
+                </h4>
+            </div>
+            <div id="overdosage" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>{{ r.overdosage.0 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#spl_medguide_table">+ Medguide Table</a>
+                </h4>
+            </div>
+            <div id="spl_medguide_table" class="panel-collapse collapse">
+                <div class="panel-body">
+                    {{ r.spl_medguide_table.0|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+{% endblock %}
